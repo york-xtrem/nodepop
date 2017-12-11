@@ -17,9 +17,10 @@ let max = [
   9007199254740991,
   "The value of `{PATH}` ({VALUE}) exceeds the limit ({MAX})."
 ];
+
 let tags = {
   values: ["work", "lifestyle", "motor", "mobile"],
-  message: "enum validator failed for tags `{PATH}` with value `{VALUE}`"
+  message: "Enum validator failed for tags `{PATH}` with value `{VALUE}`"
 };
 const productSchema = mongoose.Schema({
   name: { type: String, index: true },
@@ -45,6 +46,12 @@ productSchema.statics.list = function(filters, limit, skip, sort, fields) {
   query.select(fields);
   return query.exec();
 };
+
+/**
+ * Get tags enum
+ */
+
+// Product.schema.path('tags.enum').options.type)
 
 const Product = mongoose.model("Product", productSchema);
 
