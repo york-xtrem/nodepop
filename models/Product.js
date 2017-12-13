@@ -20,11 +20,11 @@ let max = [
 
 let tags = {
   values: ["work", "lifestyle", "motor", "mobile"],
-  message: "Enum validator failed for tags `{PATH}` with value `{VALUE}`"
+  message: "Enum validator failed for `{PATH}` with value `{VALUE}`"
 };
 const productSchema = mongoose.Schema({
-  name: { type: String, index: true },
-  sale: { type: Boolean, index: true },
+  name: { type: String, trim: true, index: true, required: true },
+  sale: { type: Boolean, index: true, required: true },
   price: {
     type: Number,
     min: min,
@@ -32,7 +32,7 @@ const productSchema = mongoose.Schema({
     index: true
   },
   photo: { type: String },
-  tags: { type: String, enum: tags, index: true }
+  tags: [{ type: String, enum: tags, index: true }]
 });
 
 /**

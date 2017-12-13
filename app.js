@@ -5,14 +5,16 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 
-// Load handlers
-var index = require("./routes/index");
-var users = require("./routes/users");
-
 // Paths Routes
 var basePath = "/";
 var usersPath = "/users";
-var apiPath = "/apiv";
+var productPath = "/products";
+var apiPath = "/api";
+
+// Load handlers
+var index = require("./routes/index");
+var users = require("./routes" + usersPath);
+var products = require("./routes" + apiPath + productPath);
 
 var app = express();
 
@@ -34,6 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Load routes
 app.use(basePath, index);
 app.use(usersPath, users);
+app.use(apiPath + productPath, products);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

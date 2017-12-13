@@ -10,9 +10,16 @@ const mongoose = require("mongoose");
  * - max/min for number
  */
 const userSchema = mongoose.Schema({
-  name: { type: String },
-  email: { type: Number, lowercase: true, unique: true, index: true },
-  password: { type: String }
+  name: { type: String, trim: true, required: true },
+  email: {
+    type: String,
+    lowercase: true,
+    trim: true,
+    unique: true,
+    index: true,
+    required: true
+  },
+  password: { type: String, index: true, required: true }
 });
 
 const User = mongoose.model("User", agenteSchema);
