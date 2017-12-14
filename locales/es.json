@@ -1,0 +1,5 @@
+{
+  "not_found": "No encontrado",
+  "not_valid": "No válido",
+  "generic": "Error: {{err}}"
+}

@@ -1,15 +1,14 @@
 "use strict";
 
-const express = require("express");
-const router = express.Router();
-var assert = require("assert");
+var express = require("express");
+var router = express.Router();
 
-// Load Products Schema
-const Product = require("../../models/Product");
+// Load Users Schema
+const User = require("../../models/User");
 
 /**
- * GET /products
- * Get list Products
+ * GET /users
+ * Get list Users
  */
 router.get("/", async (req, res, next) => {
   try {
@@ -31,8 +30,8 @@ router.get("/", async (req, res, next) => {
       filter.age = age;
     }
 
-    // const rows = await Product.list(filter, limit, skip, sort, fields);
-    const rows = await Product.find().exec();
+    // const rows = await User.list(filter, limit, skip, sort, fields);
+    const rows = await User.find().exec();
     res.json({ success: true, result: rows });
   } catch (err) {
     next(err);
@@ -40,64 +39,64 @@ router.get("/", async (req, res, next) => {
 });
 
 /**
- * GET /products:id
- * Get product
+ * GET /users:id
+ * Get user
  */
 router.get("/:id", async (req, res, next) => {
   try {
     const _id = req.params.id;
-    const product = await Product.findOne({ _id: _id }).exec();
-    res.json({ success: true, result: product });
+    const user = await User.findOne({ _id: _id }).exec();
+    res.json({ success: true, result: user });
   } catch (err) {
     next(err);
   }
 });
 
 /**
- * POST /products
- * Create a product
+ * POST /users
+ * Create a user
  */
 router.post("/", (req, res, next) => {
-  // Create a product in memory
-  const product = new Product(req.body);
+  // Create a user in memory
+  const user = new User(req.body);
 
-  product.save((err, productSaved) => {
+  user.save((err, userSaved) => {
     if (err) {
       next(err);
       return;
     }
 
-    res.json({ success: true, result: productSaved });
+    res.json({ success: true, result: userSaved });
   });
 });
 
 /**
- * PUT /products
- * Update a product
+ * PUT /users
+ * Update a user
  */
 // TODO
 router.put("/:id", async (req, res, next) => {
   try {
     const _id = req.params.id;
     const data = req.body;
-    const productUpdated = await Product.findOneAndUpdate({ _id: _id }, data, {
+    const userUpdated = await User.findOneAndUpdate({ _id: _id }, data, {
       new: true,
       runValidators: true
     }).exec();
-    res.json({ success: true, result: productUpdated });
+    res.json({ success: true, result: userUpdated });
   } catch (err) {
     next(err);
   }
 });
 
 /**
- * DELETE /products
- * Delete a product
+ * DELETE /users
+ * Delete a user
  */
 router.delete("/:id", async (req, res, next) => {
   try {
     const _id = req.params.id;
-    await Product.remove({ _id: _id }).exec();
+    await User.remove({ _id: _id }).exec();
     res.json({ success: true });
   } catch (err) {
     next(err);

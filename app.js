@@ -5,6 +5,8 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 
+const i18n = require("./utils/i18nConfig");
+
 // Paths Routes
 var basePath = "/";
 var usersPath = "/users";
@@ -13,7 +15,7 @@ var apiPath = "/api";
 
 // Load handlers
 var index = require("./routes/index");
-var users = require("./routes" + usersPath);
+var users = require("./routes" + apiPath + usersPath);
 var products = require("./routes" + apiPath + productPath);
 
 var app = express();
@@ -33,14 +35,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(i18n.init);
+
 // Load routes
 app.use(basePath, index);
-app.use(usersPath, users);
+app.use(apiPath + usersPath, users);
 app.use(apiPath + productPath, products);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error("Not Found");
+  var err = new Error(__("not_found"));
   err.status = 404;
   next(err);
 });
@@ -52,14 +56,16 @@ app.use(function(err, req, res, next) {
     err.status = 422;
     const errInfo = err.array({ onlyFirstError: true })[0];
     err.message = isAPI(req)
-      ? { message: "Not valid", errors: err.mapped() } // para peticones de API
+      ? { message: __("not_valid"), errors: err.mapped() } // para peticones de API
       : `Not valid - ${errInfo.param} ${errInfo.msg}`; // para otras peticiones
   }
   res.status(err.status || 500);
 
   // If API return JSON
   if (isAPI(req)) {
-    res.json({ success: false, error: err.message });
+    // console.error( __('generic', { err }) );
+    // res.json({ success: false, error: "API: " + err.message });
+    res.json({ success: false, error: err });
     return;
   }
   // set locals, only providing error in development
