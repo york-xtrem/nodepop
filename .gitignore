@@ -36,3 +36,5 @@ mongo.sh
 
 # VSCode
 .vscode
+
+.env

@@ -5,17 +5,19 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 
-const i18n = require("./utils/i18nConfig");
+const i18n = require("./lib/i18nConfig");
 
 // Paths Routes
 var basePath = "/";
 var usersPath = "/users";
 var productPath = "/products";
+var authenticatePath = "/authenticate";
 var apiPath = "/api";
 
 // Load handlers
 var index = require("./routes/index");
 var users = require("./routes" + apiPath + usersPath);
+var authenticate = require("./routes" + apiPath + authenticatePath);
 var products = require("./routes" + apiPath + productPath);
 
 var app = express();
@@ -41,6 +43,7 @@ app.use(i18n.init);
 app.use(basePath, index);
 app.use(apiPath + usersPath, users);
 app.use(apiPath + productPath, products);
+app.use(apiPath + authenticatePath, authenticate);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

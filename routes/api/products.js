@@ -3,9 +3,12 @@
 const express = require("express");
 const router = express.Router();
 var assert = require("assert");
+const jwtAuth = require("../../lib/jwtAuth");
 
 // Load Products Schema
 const Product = require("../../models/Product");
+
+router.use(jwtAuth());
 
 /**
  * GET /products
@@ -75,7 +78,6 @@ router.post("/", (req, res, next) => {
  * PUT /products
  * Update a product
  */
-// TODO
 router.put("/:id", async (req, res, next) => {
   try {
     const _id = req.params.id;

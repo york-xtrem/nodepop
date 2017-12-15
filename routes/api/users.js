@@ -12,25 +12,6 @@ const User = require("../../models/User");
  */
 router.get("/", async (req, res, next) => {
   try {
-    const name = req.query.name;
-    const age = req.query.age;
-    const limit = parseInt(req.query.limit); // Number(str)
-    const skip = parseInt(req.query.skip);
-    const sort = req.query.sort;
-    const fields = req.query.fields;
-
-    // Create filter empty
-    const filter = {};
-
-    if (name) {
-      filter.name = name;
-    }
-
-    if (age) {
-      filter.age = age;
-    }
-
-    // const rows = await User.list(filter, limit, skip, sort, fields);
     const rows = await User.find().exec();
     res.json({ success: true, result: rows });
   } catch (err) {
@@ -59,9 +40,10 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", (req, res, next) => {
   // Create a user in memory
   const user = new User(req.body);
-
+  console.log(user);
   user.save((err, userSaved) => {
     if (err) {
+      console.log(err);
       next(err);
       return;
     }
@@ -74,7 +56,7 @@ router.post("/", (req, res, next) => {
  * PUT /users
  * Update a user
  */
-// TODO
+// TODO: Mongoose middleware is not invoked on update() operations, so you must use a save() if you want to update user passwords.
 router.put("/:id", async (req, res, next) => {
   try {
     const _id = req.params.id;

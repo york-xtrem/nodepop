@@ -20,8 +20,7 @@ let max = [
 
 let tags = {
   values: ["work", "lifestyle", "motor", "mobile"],
-  message:
-    __("not_found") + " Enum validator failed for `{PATH}` with value `{VALUE}`"
+  message: " Enum validator failed for `{PATH}` with value `{VALUE}`"
 };
 const productSchema = mongoose.Schema({
   name: { type: String, trim: true, index: true, required: true },
