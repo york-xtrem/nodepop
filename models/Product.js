@@ -4,17 +4,11 @@ const mongoose = require("mongoose");
 
 /**
  * Product Schema
- *
- * TODO:
- * REGEX for mail, example:
- * var match = [ /\.html$/, "That file doesn't end in .html ({VALUE})" ];
- * var s = new Schema({ file: { type: String, match: match }})
  */
 
-// The Number.MAX_SAFE_INTEGER constant represents the maximum safe integer in JavaScript 9007199254740991
 let min = [0, "The value of `{PATH}` ({VALUE}) is negative."];
 let max = [
-  9007199254740991,
+  Number.MAX_SAFE_INTEGER,
   "The value of `{PATH}` ({VALUE}) exceeds the limit ({MAX})."
 ];
 
@@ -38,7 +32,26 @@ const productSchema = mongoose.Schema({
 /**
  * List products
  */
-productSchema.statics.list = function(filters, limit, skip, sort, fields) {
+productSchema.statics.list = async function(
+  filters,
+  limit,
+  skip,
+  sort,
+  fields
+) {
+  /**
+   * Check: skip < Number of products
+   */
+  if (skip) {
+    try {
+      let count = await Product.count({});
+      if (skip > count) {
+        throw new Error("Overflow limit");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const query = Product.find(filters);
   query.limit(limit);
   query.skip(skip);
@@ -48,9 +61,11 @@ productSchema.statics.list = function(filters, limit, skip, sort, fields) {
 };
 
 /**
- * Get tags enum
+ * Get tags enum from Model
  */
-
+productSchema.statics.tags = function() {
+  return productSchema.obj.tags[0].enum.values;
+};
 // Product.schema.path('tags.enum').options.type)
 
 const Product = mongoose.model("Product", productSchema);

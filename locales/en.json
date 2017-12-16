@@ -1,6 +1,6 @@
 {
-	"not_found": "Not Found",
-	"not_valid": "Not valid",
-	"generic": "Error: {{err}}",
-	"not_found ": "not_found "
+  "not_found": "Not Found",
+  "not_valid": "Not valid",
+  "generic": "Error: {{err}}",
+  "not_found ": "not_found "
 }

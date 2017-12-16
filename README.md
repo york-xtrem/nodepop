@@ -1,22 +1,37 @@
-#Nodepop
-
-## Operaciones que debe realizar el API:
-
-* Registro (nombre, email, contraseña)
-* Autenticación (email, contraseña)
-* Lista de anuncios paginada. Con filtros por tag, tipo de anuncio (venta o búsqueda),
-  rango de precio (precio min. y precio max.) y nombre de artículo (que empiece por el
-  dato buscado)
-* Lista de tags existentes
+# Nodepop
 
 ## Para arrancar MongoDB podemos usar
 
-./bin/mongod --dbpath ./data/db --directoryperdb
+`./bin/mongod --dbpath ./data/db --directoryperdb`
 
-## Desplegue
+## Despliegue
 
-Copiar .env.example a .env y revisar los valores
+Copiar **.env.example** a **.env** y revisar los valores
 
 ## Para ejecutar el proyecto en modo desarrollo
 
+```shell
 npm run dev
+```
+
+&nbsp;
+
+# Roadmap
+
+* [x] Crear app Express y probarla (express nodepop --ejs)
+* [x] Instalar Mongoose, modelo de anuncios y probarlo (con algún anuncio.save por
+      ejemplo)
+* [ ] Hacer un script de inicialización de la base de datos, que cargue el json de anuncios.
+      Se puede llamar p.e. install_db.js, debería borrar las tablas y cargar anuncios, y algún
+      usuario. Lo podemos poner en el package.json para poder usar npm run installDB.
+* [x] Hacer un fichero README.md con las instrucciones de uso puede ser una muy buena
+      idea, lo ponemos en la raíz del proyecto y si apuntamos ahí como arrancarlo, como
+      inicializar la BD, etc nos vendrá bien para cuando lo olvidemos o lo coja otra persona
+* [x] Hacer una primera versión básica del API, por ejemplo GET /apiv1/anuncios que
+      devuelva la lista de anuncios sin filtros.
+* [ ] Para tener los errores en un formato estándar podéis hacer un módulo con un objeto
+      CustomError y usarlo en los distintos sitios donde tengáis que devolverlos. Esto además nos facilitará el trabajo cuando tengamos que hacer que salgan en distintos idiomas.
+* [ ] Mejorar la lista de anuncios poniendo filtros, paginación, etc
+* [x] Meter autenticación
+* [ ] Lista de tags existentes
+* [ ] Cluster

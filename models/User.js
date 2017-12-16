@@ -10,8 +10,7 @@ const lockTime = parseInt(process.env.LOCK_TIME);
  * User Schema
  *
  * TODO:
- * - max/minlenght for string
- * - max/min for number
+ * - max/minlenght for string and password
  */
 const userSchema = mongoose.Schema({
   name: { type: String, trim: true, required: true },
@@ -22,19 +21,23 @@ const userSchema = mongoose.Schema({
     unique: true,
     index: true,
     required: true,
-    match: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+    match: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
   },
-  password: { type: String, minlength: 8, index: true, required: true },
+  password: { type: String, index: true, required: true },
   loginAttempts: { type: Number, required: true, default: 0 },
   lockUntil: { type: Number }
 });
 
+/**
+ * check for a future lockUntil timestamp
+ */
 userSchema.virtual("isLocked").get(function() {
-  // check for a future lockUntil timestamp
   return !!(this.lockUntil && this.lockUntil > Date.now());
 });
 
-// UserSchema.pre("save", async function (next) {
+/**
+ * Hash password before save
+ */
 userSchema.pre("save", function(next) {
   var user = this;
 
@@ -56,6 +59,9 @@ userSchema.pre("save", function(next) {
   });
 });
 
+/**
+ * Compare password
+ */
 userSchema.methods.comparePassword = function(candidatePassword, callback) {
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
     if (err) return callback(err);
@@ -63,6 +69,9 @@ userSchema.methods.comparePassword = function(candidatePassword, callback) {
   });
 };
 
+/**
+ * Helper Login Attempts
+ */
 userSchema.methods.incLoginAttempts = function(callback) {
   // if we have a previous lock that has expired, restart at 1
   if (this.lockUntil && this.lockUntil < Date.now()) {
@@ -83,13 +92,18 @@ userSchema.methods.incLoginAttempts = function(callback) {
   return this.update(updates, callback);
 };
 
-// expose enum on the model, and provide an internal convenience reference
+/**
+ * Expose enum on the model, and provide an internal convenience reference
+ */
 var reasons = (userSchema.statics.failedLogin = {
   NOT_FOUND: 0,
   PASSWORD_INCORRECT: 1,
   MAX_ATTEMPTS: 2
 });
 
+/**
+ * Helper for Authenticated
+ */
 userSchema.statics.getAuthenticated = function(username, password, callback) {
   this.findOne({ username: username }, function(err, user) {
     if (err) return callback(err);
