@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose");
+var mongoosePaginate = require("mongoose-paginate");
 
 /**
  * Product Schema
@@ -30,28 +31,18 @@ const productSchema = mongoose.Schema({
 });
 
 /**
+ * Plugin with promise
+ * promises = {
+ *   docs: docsQuery.exec(),
+ *   count: this.count(query).exec()
+ * };
+ */
+productSchema.plugin(mongoosePaginate);
+
+/**
  * List products
  */
-productSchema.statics.list = async function(
-  filters,
-  limit,
-  skip,
-  sort,
-  fields
-) {
-  /**
-   * Check: skip < Number of products
-   */
-  if (skip) {
-    try {
-      let count = await Product.count({});
-      if (skip > count) {
-        throw new Error("Overflow limit");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+productSchema.statics.list = function(filters, limit, skip, sort, fields) {
   const query = Product.find(filters);
   query.limit(limit);
   query.skip(skip);

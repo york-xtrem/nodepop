@@ -6,6 +6,7 @@ var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 
 const i18n = require("./lib/i18nConfig");
+const jwtAuth = require("./lib/jwtAuth");
 
 // Paths Routes
 var basePath = "/";
@@ -35,6 +36,13 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Protect images of products
+app.use(
+  "/images/products",
+  jwtAuth(),
+  express.static(path.join(__dirname, "products"))
+);
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(i18n.init);
@@ -69,6 +77,7 @@ app.use(function(err, req, res, next) {
     // console.error( __('generic', { err }) );
     // res.json({ success: false, error: "API: " + err.message });
     res.json({ success: false, error: err });
+    console.log(err.message);
     return;
   }
   // set locals, only providing error in development

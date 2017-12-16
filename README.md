@@ -21,7 +21,7 @@ npm run dev
 * [x] Crear app Express y probarla (express nodepop --ejs)
 * [x] Instalar Mongoose, modelo de anuncios y probarlo (con algún anuncio.save por
       ejemplo)
-* [ ] Hacer un script de inicialización de la base de datos, que cargue el json de anuncios.
+* [x] Hacer un script de inicialización de la base de datos, que cargue el json de anuncios.
       Se puede llamar p.e. install_db.js, debería borrar las tablas y cargar anuncios, y algún
       usuario. Lo podemos poner en el package.json para poder usar npm run installDB.
 * [x] Hacer un fichero README.md con las instrucciones de uso puede ser una muy buena
@@ -31,7 +31,8 @@ npm run dev
       devuelva la lista de anuncios sin filtros.
 * [ ] Para tener los errores en un formato estándar podéis hacer un módulo con un objeto
       CustomError y usarlo en los distintos sitios donde tengáis que devolverlos. Esto además nos facilitará el trabajo cuando tengamos que hacer que salgan en distintos idiomas.
-* [ ] Mejorar la lista de anuncios poniendo filtros, paginación, etc
+* [x] Mejorar la lista de anuncios poniendo filtros, paginación, etc
 * [x] Meter autenticación
-* [ ] Lista de tags existentes
+* [x] Lista de tags existentes
 * [ ] Cluster
+* [ ] Limitar las zonas de acceso

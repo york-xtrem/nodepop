@@ -10,6 +10,9 @@ const Product = require("../../models/Product");
 // Load filter: range number
 const filterRangeNumber = require("../../utils/filterRangeNumber");
 
+// Helper for path
+const basePath = require("../../utils/basePath");
+
 router.use(jwtAuth());
 
 /**
@@ -18,48 +21,59 @@ router.use(jwtAuth());
  */
 router.get("/", async (req, res, next) => {
   try {
+    // Create query empty
+    const query = {};
+
     const name = req.query.name;
+    if (name) query.name = new RegExp("^" + name, "i");
+
     const sale = req.query.sale;
+    if (sale) query.sale = sale;
+
     const tags = req.query.tags;
+    if (tags) query.tags = { $all: tags };
+
     const price = req.query.price;
+    if (price) query.price = filterRangeNumber(price);
 
-    // Create filter empty
-    const filter = {};
-    if (name) {
-      filter.name = new RegExp("^" + name, "i");
-    }
+    // Create options
+    const options = {};
 
-    if (sale) {
-      filter.sale = sale;
-    }
-
-    if (tags) {
-      filter.tags = { $all: tags };
-    }
-
-    if (price) {
-      filter.price = filterRangeNumber(price);
-    }
-    console.log(filter);
-
-    /**
-     * Paginate from 0
-     * Limit default: 10
-     */
-    const page = parseInt(req.query.page);
-    const limit = parseInt(req.query.limit) || 10;
-    let skip = parseInt(req.query.skip);
-    if (Number.isInteger(page)) {
-      // Skip rewrite for pagination
-      skip = page * limit;
-    }
+    // Select fields
+    const select = req.query.select;
+    if (select) options.select = select;
 
     const sort = req.query.sort;
-    const fields = req.query.fields;
+    if (sort) options.sort = sort;
 
-    const rows = await Product.list(filter, limit, skip, sort, fields);
-    res.json({ success: true, result: rows });
+    // Lean: return plain javascript objects, not Mongoose Documents.
+    const lean = req.query.lean;
+    if (lean) options.lean = lean;
+    const leanWithId = req.query.leanWithId;
+    if (leanWithId) options.leanWithId = leanWithId;
+
+    const limit = parseInt(req.query.limit);
+    if (limit) options.limit = limit;
+
+    const page = parseInt(req.query.page);
+    if (page) options.page = page;
+
+    const offset = parseInt(req.query.offset);
+    if (offset) options.offset = offset;
+
+    const skip = parseInt(req.query.skip);
+    if (skip) options.skip = skip;
+
+    const result = await Product.paginate(query, options);
+    if (result.page < result.pages) {
+      await basePath(result.docs, "images/products/", "photo");
+    } else {
+      throw new Error("You have exceeded the number of pages");
+    }
+
+    res.json({ success: true, result: result });
   } catch (err) {
+    console.log(err.message);
     next(err);
   }
 });
