@@ -3,7 +3,9 @@
   "not_valid": "ENGLISH: No válido",
   "not_modified": "ENGLISH: No modificado",
   "not_more_pages": "ENGLISH: No hay más páginas",
+  "require_role": "ENGLISH: Necesitas tener más privilegios",
   "generic": "ENGLISH: Error: {{error}}",
+  "roles": "ENGLISH: {{value}} no es un tipo de usuario válido",
   "number_min":
     "ENGLISH: El valor de {{path}} es {{value}} y es inferior a {{min}}",
   "number_max":
@@ -15,11 +17,14 @@
   "authenticate": "ENGLISH: Usuario y/o password incorrectos",
   "token": "ENGLISH: Identifíquese para acceder a este recurso",
   "token_error": "ENGLISH: Error al generar token",
+  "token_invalid": "ENGLISH: Token no válido",
   "mail": "ENGLISH: El correo {{value}} no es válido",
   "name": "ENGLISH: nombre",
   "sale": "ENGLISH: venta/compra",
   "price": "ENGLISH: precio",
   "photo": "ENGLISH: nombre",
   "password": "ENGLISH: contraseña",
-  "email": "ENGLISH: correo"
+  "email": "ENGLISH: correo",
+  "unique":
+    "English: ya existe {{path}} con valor {{value}} en nuestra base de datos"
 }

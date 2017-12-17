@@ -8,7 +8,7 @@ const User = require("../../models/User");
 router.post("/", async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-
+  console.log(password);
   //   User.getAuthenticated(email, password, function(err, user, reason) {
   //     if (err) throw err;
 

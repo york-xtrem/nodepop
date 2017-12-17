@@ -1,6 +1,7 @@
 "use strict";
 
 const ora = require("ora");
+require("dotenv").config();
 
 // Load connect Mongoose
 const conn = require("../lib/connectMongoose");
@@ -19,8 +20,8 @@ const readJSON = require("./readJSON");
 // const users = require("../test/mockupData/MOCK_USER.json");
 
 // Load mockup data path
-const products = "test/mockupData/MOCK_PRODUCT.json";
-const users = "test/mockupData/MOCK_USER.json";
+const products = "test/mockupData/MOCK_PRODUCT_10.json";
+const users = "test/mockupData/MOCK_USER_10.json";
 
 async function drop() {
   let productDrop = dropCollection("Product");
@@ -66,6 +67,16 @@ async function installDB() {
   spinner.start("Seed");
   await seed();
   spinner.succeed("Seed");
+  spinner.start("Create admin");
+  const adminProperties = {
+    name: process.env.ADMIN_NAME,
+    email: process.env.ADMIN_EMAIL,
+    password: process.env.ADMIN_PASSWORD,
+    role: process.env.ADMIN_ROLE
+  };
+  const admin = new userModel(adminProperties);
+  await admin.save();
+  spinner.succeed("Create admin");
   await conn.close();
 }
 

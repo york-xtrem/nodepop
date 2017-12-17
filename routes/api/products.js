@@ -13,7 +13,11 @@ const filterRangeNumber = require("../../utils/filterRangeNumber");
 // Helper for path
 const basePath = require("../../utils/basePath");
 
+// Custom validator for post Products/Users
 const ValidationErrorCustom = require("../../lib/validatorError");
+
+// Control router
+const checkRole = require("../../lib/checkRole");
 
 router.use(jwtAuth());
 
@@ -95,7 +99,7 @@ router.get("/tags", async (req, res, next) => {
  * GET /products:id
  * Get product
  */
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", checkRole("Admin"), async (req, res, next) => {
   try {
     const _id = req.params.id;
     const product = await Product.findOne({ _id: _id }).exec();
@@ -111,7 +115,7 @@ router.get("/:id", async (req, res, next) => {
  * POST /products
  * Create a product
  */
-router.post("/", (req, res, next) => {
+router.post("/", checkRole("Admin"), (req, res, next) => {
   // Create a product in memory
   const product = new Product(req.body);
   product.save((err, productSaved) => {
@@ -128,7 +132,7 @@ router.post("/", (req, res, next) => {
  * PUT /products
  * Update a product
  */
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", checkRole("Admin"), async (req, res, next) => {
   try {
     const _id = req.params.id;
     const data = req.body;
@@ -148,7 +152,7 @@ router.put("/:id", async (req, res, next) => {
  * DELETE /products
  * Delete a product
  */
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", checkRole("Admin"), async (req, res, next) => {
   try {
     const _id = req.params.id;
     await Product.remove({ _id: _id }).exec();

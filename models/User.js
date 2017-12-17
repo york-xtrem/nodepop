@@ -2,6 +2,9 @@
 
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const mongoosePaginate = require("mongoose-paginate");
+// Custom message error
+var uniqueValidator = require("mongoose-unique-validator");
 const salt = parseInt(process.env.BCRYPT_SALT_ROUNDS);
 const maxLoginAttempts = parseInt(process.env.MAX_LOGIN_ATTEMPTS);
 const lockTime = parseInt(process.env.LOCK_TIME);
@@ -16,6 +19,11 @@ const mailMatch = [
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
   "mail::{VALUE}"
 ];
+
+const roles = {
+  values: ["User", "Admin"],
+  message: "roles::{VALUE}"
+};
 
 const userSchema = mongoose.Schema({
   name: { type: String, trim: true, required: [true, "required::name"] },
@@ -32,10 +40,26 @@ const userSchema = mongoose.Schema({
     type: String,
     index: true,
     required: [true, "required::password"]
+  },
+  role: {
+    type: String,
+    default: "User",
+    enum: roles
   }
 });
 // loginAttempts: { type: Number, required: true, default: 0 },
 // lockUntil: { type: Number }
+
+// userSchema.plugin(uniqueValidator, { message: "unique::{PATH}::{VALUE}" });
+
+/**
+ * Plugin with promise
+ * promises = {
+ *   docs: docsQuery.exec(),
+ *   count: this.count(query).exec()
+ * };
+ */
+userSchema.plugin(mongoosePaginate);
 
 /**
  * check for a future lockUntil timestamp

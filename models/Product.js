@@ -1,19 +1,19 @@
 "use strict";
 
 const mongoose = require("mongoose");
-var mongoosePaginate = require("mongoose-paginate");
+const mongoosePaginate = require("mongoose-paginate");
 
 /**
  * Product Schema
  */
 
-let min = [0, "number_min::{PATH}::{VALUE}::0"];
-let max = [
+const min = [0, "number_min::{PATH}::{VALUE}::0"];
+const max = [
   Number.MAX_SAFE_INTEGER,
   "number_max::{PATH}::{VALUE}::Number.MAX_SAFE_INTEGER"
 ];
 
-let tags = {
+const tags = {
   values: ["work", "lifestyle", "motor", "mobile"],
   message: "tags::{VALUE}"
 };

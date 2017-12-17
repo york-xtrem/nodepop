@@ -36,6 +36,8 @@ npm run dev
 * [x] Mejorar la lista de anuncios poniendo filtros, paginación, etc
 * [x] Meter autenticación
 * [x] Lista de tags existentes
-* [ ] Cluster
-* [ ] Limitar las zonas de acceso
+* [x] Cluster
+* [x] HTTPS
+* [x] Limitar las zonas de acceso
 * [ ] Config & ENV
+* [ ] Change bcrypt to bcryptjs:https://github.com/jedireza/frame/wiki/bcrypt-Installation-Trouble
