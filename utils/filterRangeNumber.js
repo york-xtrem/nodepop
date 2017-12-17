@@ -1,7 +1,7 @@
 "use strict";
 
 function filterRangeNumber(range) {
-  console.log("range: " + range);
+  // console.log("range: " + range);
   let _range = range;
   let groupRange = [];
   // REGEX INFO:
@@ -16,18 +16,18 @@ function filterRangeNumber(range) {
     if (m.index === regex.lastIndex) {
       regex.lastIndex++;
     }
-    console.log("M: " + m);
+    // console.log("M: " + m);
     // The result can be accessed through the `m`-variable.
     m.forEach((match, groupIndex) => {
-      console.log(`Found match, group ${groupIndex}: ${match}`);
+      // console.log(`Found match, group ${groupIndex}: ${match}`);
       groupRange.push(match);
     });
   }
 
-  console.log("0: " + parseInt(groupRange[0]));
-  console.log("1: " + parseInt(groupRange[1]));
-  console.log("2: " + parseInt(groupRange[2]));
-  console.log("3: " + parseInt(groupRange[3]));
+  // console.log("0: " + parseInt(groupRange[0]));
+  // console.log("1: " + parseInt(groupRange[1]));
+  // console.log("2: " + parseInt(groupRange[2]));
+  // console.log("3: " + parseInt(groupRange[3]));
 
   if (groupRange[1] && !groupRange[2] && !groupRange[3]) {
     filter = _range;

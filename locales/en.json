@@ -1,6 +1,8 @@
 {
   "not_found": "ENGLISH: No encontrado",
   "not_valid": "ENGLISH: No válido",
+  "not_modified": "ENGLISH: No modificado",
+  "not_more_pages": "ENGLISH: No hay más páginas",
   "generic": "ENGLISH: Error: {{error}}",
   "number_min":
     "ENGLISH: El valor de {{path}} es {{value}} y es inferior a {{min}}",
@@ -12,5 +14,12 @@
   "required": "ENGLISH: El campo {{path}} es obligatorio",
   "authenticate": "ENGLISH: Usuario y/o password incorrectos",
   "token": "ENGLISH: Identifíquese para acceder a este recurso",
-  "mail": "ENGLISH: El correo {{value}} no es válido"
+  "token_error": "ENGLISH: Error al generar token",
+  "mail": "ENGLISH: El correo {{value}} no es válido",
+  "name": "ENGLISH: nombre",
+  "sale": "ENGLISH: venta/compra",
+  "price": "ENGLISH: precio",
+  "photo": "ENGLISH: nombre",
+  "password": "ENGLISH: contraseña",
+  "email": "ENGLISH: correo"
 }

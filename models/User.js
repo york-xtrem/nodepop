@@ -12,21 +12,30 @@ const lockTime = parseInt(process.env.LOCK_TIME);
  * TODO:
  * - max/minlenght for string and password
  */
+const mailMatch = [
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+  "mail::{VALUE}"
+];
+
 const userSchema = mongoose.Schema({
-  name: { type: String, trim: true, required: true },
+  name: { type: String, trim: true, required: [true, "required::name"] },
   email: {
     type: String,
     lowercase: true,
     trim: true,
     unique: true,
     index: true,
-    required: true,
-    match: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    required: [true, "required::email"],
+    match: mailMatch
   },
-  password: { type: String, index: true, required: true },
-  loginAttempts: { type: Number, required: true, default: 0 },
-  lockUntil: { type: Number }
+  password: {
+    type: String,
+    index: true,
+    required: [true, "required::password"]
+  }
 });
+// loginAttempts: { type: Number, required: true, default: 0 },
+// lockUntil: { type: Number }
 
 /**
  * check for a future lockUntil timestamp

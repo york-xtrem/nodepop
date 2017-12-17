@@ -6,6 +6,8 @@ var router = express.Router();
 // Load Users Schema
 const User = require("../../models/User");
 
+const ValidationErrorCustom = require("../../lib/validatorError");
+
 /**
  * GET /users
  * Get list Users
@@ -15,7 +17,9 @@ router.get("/", async (req, res, next) => {
     const rows = await User.find().exec();
     res.json({ success: true, result: rows });
   } catch (err) {
-    next(err);
+    const error = new Error(__("not_found"));
+    error.status = 404;
+    next(error);
   }
 });
 
@@ -29,7 +33,9 @@ router.get("/:id", async (req, res, next) => {
     const user = await User.findOne({ _id: _id }).exec();
     res.json({ success: true, result: user });
   } catch (err) {
-    next(err);
+    const error = new Error(__("not_found"));
+    error.status = 404;
+    next(error);
   }
 });
 
@@ -43,11 +49,10 @@ router.post("/", (req, res, next) => {
   console.log(user);
   user.save((err, userSaved) => {
     if (err) {
-      console.log(err);
-      next(err);
+      const errorCustom = new ValidationErrorCustom(err.errors);
+      next(errorCustom);
       return;
     }
-
     res.json({ success: true, result: userSaved });
   });
 });
@@ -67,7 +72,9 @@ router.put("/:id", async (req, res, next) => {
     }).exec();
     res.json({ success: true, result: userUpdated });
   } catch (err) {
-    next(err);
+    const error = new Error(__("not_modified"));
+    error.status = 304;
+    next(error);
   }
 });
 
@@ -81,7 +88,9 @@ router.delete("/:id", async (req, res, next) => {
     await User.remove({ _id: _id }).exec();
     res.json({ success: true });
   } catch (err) {
-    next(err);
+    const error = new Error(__("not_modified"));
+    error.status = 304;
+    next(error);
   }
 });
 

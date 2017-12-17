@@ -13,7 +13,7 @@ const filterRangeNumber = require("../../utils/filterRangeNumber");
 // Helper for path
 const basePath = require("../../utils/basePath");
 
-const parseError = require("../../lib/parseError");
+const ValidationErrorCustom = require("../../lib/validatorError");
 
 router.use(jwtAuth());
 
@@ -60,21 +60,19 @@ router.get("/", async (req, res, next) => {
     const page = parseInt(req.query.page);
     if (page) options.page = page;
 
+    // Use offset or page to set skip position
     const offset = parseInt(req.query.offset);
     if (offset) options.offset = offset;
 
-    const skip = parseInt(req.query.skip);
-    if (skip) options.skip = skip;
-
     const result = await Product.paginate(query, options);
-    if (result.page < result.pages) {
-      await basePath(result.docs, "images/products/", "photo");
-    } else {
-      throw new Error("You have exceeded the number of pages");
-    }
+
+    await basePath(result.docs, "images/products/", "photo");
+
     res.json({ success: true, result: result });
   } catch (err) {
-    next(err);
+    const error = new Error(__("not_found"));
+    error.status = 404;
+    next(error);
   }
 });
 
@@ -87,7 +85,9 @@ router.get("/tags", async (req, res, next) => {
     const tags = Product.tags();
     res.json({ success: true, result: tags });
   } catch (err) {
-    next(err);
+    const error = new Error(__("not_found"));
+    error.status = 404;
+    next(error);
   }
 });
 
@@ -101,7 +101,9 @@ router.get("/:id", async (req, res, next) => {
     const product = await Product.findOne({ _id: _id }).exec();
     res.json({ success: true, result: product });
   } catch (err) {
-    next(err);
+    const error = new Error(__("not_found"));
+    error.status = 404;
+    next(error);
   }
 });
 
@@ -114,13 +116,10 @@ router.post("/", (req, res, next) => {
   const product = new Product(req.body);
   product.save((err, productSaved) => {
     if (err) {
-      // console.log(JSON.stringify(err.errors));
-      // let json = JSON.stringify(err.errors);
-      parseError(err.errors);
-      next(err);
+      const errorCustom = new ValidationErrorCustom(err.errors);
+      next(errorCustom);
       return;
     }
-
     res.json({ success: true, result: productSaved });
   });
 });
@@ -139,7 +138,9 @@ router.put("/:id", async (req, res, next) => {
     }).exec();
     res.json({ success: true, result: productUpdated });
   } catch (err) {
-    next(err);
+    const error = new Error(__("not_modified"));
+    error.status = 304;
+    next(error);
   }
 });
 
@@ -153,7 +154,9 @@ router.delete("/:id", async (req, res, next) => {
     await Product.remove({ _id: _id }).exec();
     res.json({ success: true });
   } catch (err) {
-    next(err);
+    const error = new Error(__("not_modified"));
+    error.status = 304;
+    next(error);
   }
 });
 

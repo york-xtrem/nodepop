@@ -10,12 +10,12 @@ var mongoosePaginate = require("mongoose-paginate");
 let min = [0, "number_min::{PATH}::{VALUE}::0"];
 let max = [
   Number.MAX_SAFE_INTEGER,
-  "The value of `{PATH}` ({VALUE}) exceeds the limit ({MAX})."
+  "number_max::{PATH}::{VALUE}::Number.MAX_SAFE_INTEGER"
 ];
 
 let tags = {
   values: ["work", "lifestyle", "motor", "mobile"],
-  message: " Enum validator failed for `{PATH}` with value `{VALUE}`"
+  message: "tags::{VALUE}"
 };
 const productSchema = mongoose.Schema({
   name: {
@@ -24,7 +24,7 @@ const productSchema = mongoose.Schema({
     index: true,
     required: [true, "required::name"]
   },
-  sale: { type: Boolean, index: true, required: true },
+  sale: { type: Boolean, index: true, required: [true, "required::sale"] },
   price: {
     type: Number,
     min: min,

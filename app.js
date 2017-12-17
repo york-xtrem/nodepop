@@ -75,10 +75,8 @@ app.use(function(err, req, res, next) {
 
   // If API return JSON
   if (isAPI(req)) {
-    // console.error( __('generic', { err }) );
-    // res.json({ success: false, error: "API: " + err.message });
-    res.json({ success: false, error: err });
-    console.log(err.message);
+    res.json({ success: false, error: err.message });
+    console.log(err);
     return;
   }
   // set locals, only providing error in development

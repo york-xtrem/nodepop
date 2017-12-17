@@ -29,10 +29,11 @@ npm run dev
       inicializar la BD, etc nos vendrá bien para cuando lo olvidemos o lo coja otra persona
 * [x] Hacer una primera versión básica del API, por ejemplo GET /apiv1/anuncios que
       devuelva la lista de anuncios sin filtros.
-* [ ] Para tener los errores en un formato estándar podéis hacer un módulo con un objeto
+* [x] Para tener los errores en un formato estándar podéis hacer un módulo con un objeto
       CustomError y usarlo en los distintos sitios donde tengáis que devolverlos. Esto además nos facilitará el trabajo cuando tengamos que hacer que salgan en distintos idiomas.
 * [x] Mejorar la lista de anuncios poniendo filtros, paginación, etc
 * [x] Meter autenticación
 * [x] Lista de tags existentes
 * [ ] Cluster
 * [ ] Limitar las zonas de acceso
+* [ ] Config & ENV

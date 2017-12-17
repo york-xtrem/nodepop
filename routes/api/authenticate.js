@@ -35,14 +35,14 @@ router.post("/", async (req, res, next) => {
   // });
   try {
     const existingUser = await User.findOne({ email }).exec();
-    console.log("After promise");
     existingUser.comparePassword(password, function(err, isMatch) {
       if (err) return callback(err);
 
       // check if the password was a match
       if (!isMatch) {
-        res.status = 401;
-        res.json({ error: "Credenciales incorrectas" });
+        const errorMatch = new Error(__("authenticate"));
+        errorMatch.status = 401;
+        next(errorMatch);
         return;
       } else {
         const user_id = existingUser._id;
@@ -56,8 +56,9 @@ router.post("/", async (req, res, next) => {
           },
           (err, token) => {
             if (err) {
-              console.log("Error al generar token");
-              next(err);
+              const errorToken = new Error(__("token_error"));
+              errorToken.status = 500;
+              next(errorToken);
               return;
             }
 
