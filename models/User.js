@@ -3,8 +3,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const mongoosePaginate = require("mongoose-paginate");
-// Custom message error
-var uniqueValidator = require("mongoose-unique-validator");
 const salt = parseInt(process.env.BCRYPT_SALT_ROUNDS);
 const maxLoginAttempts = parseInt(process.env.MAX_LOGIN_ATTEMPTS);
 const lockTime = parseInt(process.env.LOCK_TIME);
@@ -49,8 +47,6 @@ const userSchema = mongoose.Schema({
 });
 // loginAttempts: { type: Number, required: true, default: 0 },
 // lockUntil: { type: Number }
-
-// userSchema.plugin(uniqueValidator, { message: "unique::{PATH}::{VALUE}" });
 
 /**
  * Plugin with promise

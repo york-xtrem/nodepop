@@ -120,8 +120,12 @@ router.post("/", checkRole("Admin"), (req, res, next) => {
   const product = new Product(req.body);
   product.save((err, productSaved) => {
     if (err) {
-      const errorCustom = new ValidationErrorCustom(err.errors);
-      next(errorCustom);
+      if (err.errors) {
+        const errorCustom = new ValidationErrorCustom(err.errors);
+        next(errorCustom);
+      } else {
+        next(err);
+      }
       return;
     }
     res.json({ success: true, result: productSaved });

@@ -23,9 +23,12 @@ router.post("/", (req, res, next) => {
   console.log(user);
   user.save((err, userSaved) => {
     if (err) {
-      // const errorCustom = new ValidationErrorCustom(err.errors);
-      // next(errorCustom);
-      next(err);
+      if (err.errors) {
+        const errorCustom = new ValidationErrorCustom(err.errors);
+        next(errorCustom);
+      } else {
+        next(err);
+      }
       return;
     }
     res.json({ success: true, result: userSaved });
@@ -38,7 +41,6 @@ router.use(jwtAuth());
  * GET /users
  * Get list Users
  */
-console.log(global.myData);
 router.get("/", checkRole("Admin"), async (req, res, next) => {
   try {
     // Create query empty
