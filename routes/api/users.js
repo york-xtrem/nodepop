@@ -108,10 +108,8 @@ router.get("/:id", checkRole("Admin"), async (req, res, next) => {
  * Update a user
  */
 // TODO: Mongoose middleware is not invoked on update() operations, so you must use a save() if you want to update user passwords.
-// router.put("/:id", async (req, res, next) => {
 router.put("/", async (req, res, next) => {
   try {
-    // const _id = req.params.id;
     const _id = req.userId;
     const data = req.body;
     const userUpdated = await User.findOneAndUpdate({ _id: _id }, data, {
@@ -130,10 +128,8 @@ router.put("/", async (req, res, next) => {
  * DELETE /users
  * Delete a user
  */
-// router.delete("/:id", async (req, res, next) => {
 router.delete("/", async (req, res, next) => {
   try {
-    // const _id = req.params.id;
     const _id = req.userId;
     await User.remove({ _id: _id }).exec();
     res.json({ success: true });

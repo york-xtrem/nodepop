@@ -26,7 +26,7 @@ function dropCollection(modelName) {
       // Remove mongoose's internal records of this
       // temp. model and the schema associated with it
       delete mongoose.models[modelName];
-      //   delete mongoose.connection.collections["products"];
+      // delete mongoose.connection.collections["products"];
       delete mongoose.modelSchemas[modelName];
 
       resolve();
