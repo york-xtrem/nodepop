@@ -1,7 +1,6 @@
 "use strict";
 
 function filterRangeNumber(range) {
-  // console.log("range: " + range);
   let _range = range;
   let groupRange = [];
   // REGEX INFO:
@@ -23,11 +22,6 @@ function filterRangeNumber(range) {
       groupRange.push(match);
     });
   }
-
-  // console.log("0: " + parseInt(groupRange[0]));
-  // console.log("1: " + parseInt(groupRange[1]));
-  // console.log("2: " + parseInt(groupRange[2]));
-  // console.log("3: " + parseInt(groupRange[3]));
 
   if (groupRange[1] && !groupRange[2] && !groupRange[3]) {
     filter = _range;
