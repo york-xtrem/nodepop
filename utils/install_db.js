@@ -15,13 +15,9 @@ const userModel = require("../models/User");
 const dropCollection = require("./dropCollection");
 const readJSON = require("./readJSON");
 
-// Load mockup data - Sync
-// const products = require("../test/mockupData/MOCK_PRODUCT.json");
-// const users = require("../test/mockupData/MOCK_USER.json");
-
 // Load mockup data path
-const products = "test/mockupData/MOCK_PRODUCT_10.json";
-const users = "test/mockupData/MOCK_USER_10.json";
+const products = process.env.INITIAL_PRODUCTS;
+const users = process.env.INITIAL_USERS;
 
 async function drop() {
   let productDrop = dropCollection("Product");

@@ -52,9 +52,6 @@ router.get("/", checkRole("Admin"), async (req, res, next) => {
     const email = req.query.email;
     if (email) query.email = email;
 
-    const password = req.query.password;
-    if (password) query.password = password;
-
     // Create options
     const options = {};
 

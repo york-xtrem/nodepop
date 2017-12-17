@@ -8,6 +8,8 @@ require("dotenv").config();
 
 var app = require("../app");
 var debug = require("debug")("nodepop:server");
+// Uncomment for HTTPS and comment line below
+// var https = require("https");
 var http = require("http");
 
 /**
@@ -18,9 +20,20 @@ var port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
 /**
+ * Options for HTTPS
+ */
+
+const options = {
+  key: fs.readFileSync("certificates/host.key"),
+  cert: fs.readFileSync("certificates/host.cert")
+};
+
+/**
  * Create HTTP server.
  */
 
+//  Uncomment for HTTPS and comment line below
+// var server = https.createServer(options, app);
 var server = http.createServer(app);
 
 /**

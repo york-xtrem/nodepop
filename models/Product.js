@@ -29,7 +29,8 @@ const productSchema = mongoose.Schema({
     type: Number,
     min: min,
     max: max,
-    index: true
+    index: true,
+    required: [true, "required::price"]
   },
   photo: { type: String },
   tags: [{ type: String, enum: tags, index: true }]
