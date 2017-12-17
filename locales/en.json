@@ -1,6 +1,16 @@
 {
-  "not_found": "Not Found",
-  "not_valid": "Not valid",
-  "generic": "Error: {{err}}",
-  "not_found ": "not_found "
+  "not_found": "ENGLISH: No encontrado",
+  "not_valid": "ENGLISH: No válido",
+  "generic": "ENGLISH: Error: {{error}}",
+  "number_min":
+    "ENGLISH: El valor de {{path}} es {{value}} y es inferior a {{min}}",
+  "number_max":
+    "ENGLISH: El valor de {{path}} es {{value}} y es superior a {{max}}",
+  "tags": "ENGLISH: {{value}} no es una etiqueta válida",
+  "string":
+    "ENGLISH: El {{path}} con valor {{value}} no es una cadena de carácteres válida",
+  "required": "ENGLISH: El campo {{path}} es obligatorio",
+  "authenticate": "ENGLISH: Usuario y/o password incorrectos",
+  "token": "ENGLISH: Identifíquese para acceder a este recurso",
+  "mail": "ENGLISH: El correo {{value}} no es válido"
 }

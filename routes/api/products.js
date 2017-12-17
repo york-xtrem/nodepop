@@ -13,6 +13,8 @@ const filterRangeNumber = require("../../utils/filterRangeNumber");
 // Helper for path
 const basePath = require("../../utils/basePath");
 
+const parseError = require("../../lib/parseError");
+
 router.use(jwtAuth());
 
 /**
@@ -110,9 +112,11 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", (req, res, next) => {
   // Create a product in memory
   const product = new Product(req.body);
-
   product.save((err, productSaved) => {
     if (err) {
+      // console.log(JSON.stringify(err.errors));
+      // let json = JSON.stringify(err.errors);
+      parseError(err.errors);
       next(err);
       return;
     }

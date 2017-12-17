@@ -7,7 +7,7 @@ var mongoosePaginate = require("mongoose-paginate");
  * Product Schema
  */
 
-let min = [0, "The value of `{PATH}` ({VALUE}) is negative."];
+let min = [0, "number_min::{PATH}::{VALUE}::0"];
 let max = [
   Number.MAX_SAFE_INTEGER,
   "The value of `{PATH}` ({VALUE}) exceeds the limit ({MAX})."
@@ -18,7 +18,12 @@ let tags = {
   message: " Enum validator failed for `{PATH}` with value `{VALUE}`"
 };
 const productSchema = mongoose.Schema({
-  name: { type: String, trim: true, index: true, required: true },
+  name: {
+    type: String,
+    trim: true,
+    index: true,
+    required: [true, "required::name"]
+  },
   sale: { type: Boolean, index: true, required: true },
   price: {
     type: Number,
