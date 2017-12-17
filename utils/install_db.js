@@ -19,11 +19,8 @@ const readJSON = require("./readJSON");
 // const users = require("../test/mockupData/MOCK_USER.json");
 
 // Load mockup data path
-const products = "../test/mockupData/MOCK_PRODUCT.json";
-const users = "../test/mockupData/MOCK_USER.json";
-
-// Load mockup data with errors
-const productsWithErrors = require("../test/mockupData/MOCK_PRODUCT-withErrors.json");
+const products = "test/mockupData/MOCK_PRODUCT.json";
+const users = "test/mockupData/MOCK_USER.json";
 
 async function drop() {
   let productDrop = dropCollection("Product");
@@ -57,8 +54,8 @@ async function seedCollectionInsert() {
 }
 
 async function seed() {
-  let productSeed = seedCollection(userModel, users);
-  let userSeed = seedCollection(productModel, products);
+  let userSeed = seedCollection(userModel, users);
+  let productSeed = seedCollection(productModel, products);
   await Promise.all([productSeed, userSeed]);
 }
 

@@ -70,10 +70,8 @@ router.get("/", async (req, res, next) => {
     } else {
       throw new Error("You have exceeded the number of pages");
     }
-
     res.json({ success: true, result: result });
   } catch (err) {
-    console.log(err.message);
     next(err);
   }
 });

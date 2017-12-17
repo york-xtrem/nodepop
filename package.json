@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "cluster": "node ./bin/cluster",
     "dev": "cross-env DEBUG=nodeapi:* nodemon ./bin/www",
-    "installDB": "node ./utils/install_db.js"
+    "installDB": "node ./utils/install_db"
   },
   "dependencies": {
     "async": "^2.6.0",

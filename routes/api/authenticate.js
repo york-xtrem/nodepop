@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 
 router.post("/", async (req, res, next) => {
-  // recogemos las credenciales
   const email = req.body.email;
   const password = req.body.password;
 
@@ -48,11 +47,8 @@ router.post("/", async (req, res, next) => {
       } else {
         const user_id = existingUser._id;
 
-        // si el usuario existe y la password coincide
-        // creamos un token
-        // no firmar objetos de mongoose, usar mejor un nuevo objeto solo con lo mínimo
+        // Sign token
         jwt.sign(
-          // { user_id: user._id },
           { user_id },
           process.env.JWT_SECRET,
           {
@@ -65,7 +61,6 @@ router.post("/", async (req, res, next) => {
               return;
             }
 
-            // y lo devolvemos
             res.json({ success: true, token: token });
           }
         );
