@@ -16,7 +16,9 @@ npm run dev
 
 &nbsp;
 
-# Roadmap
+## Roadmap
+
+---
 
 * [x] Crear app Express y probarla (express nodepop --ejs)
 * [x] Instalar Mongoose, modelo de anuncios y probarlo (con algún anuncio.save por
