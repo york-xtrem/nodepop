@@ -16,7 +16,7 @@ Está optimizada para aprovechar al máximo los recursos haciendo uso de promesa
 * [Seguridad](#seguridad)
 * [Modelos](#modelos)
 * [Rutas](#rutas)
-* **[Módulos creados desde 0 importantes](#modulos-creados-desde-0-importantes)** 🦄
+* [Módulos creados desde 0 importantes](#modulos-creados-desde-0-importantes) 🦄
 * [Roadmap](#roadmap)
 
 ## Instalación
