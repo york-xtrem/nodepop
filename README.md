@@ -9,14 +9,14 @@ Está optimizada para aprovechar al máximo los recursos haciendo uso de promesa
 
 ## Ìndice
 
-* [Instalación](#instalacion)
+* [Instalación](#instalación)
 * [Configuración](#configuracion)
 * [Producción](#produccion)
 * [Desarrollo](#desarrollo)
 * [Seguridad](#seguridad)
 * [Modelos](#modelos)
 * [Rutas](#rutas)
-* [Módulos creados desde 0 importantes](#modulos-creados-desde-0-importantes) 🦄
+* **[Módulos creados desde 0 importantes](#módulos-creados-desde-0-importantes)** 🦄
 * [Roadmap](#roadmap)
 
 ## Instalación
