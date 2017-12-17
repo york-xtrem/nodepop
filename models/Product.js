@@ -1,38 +1,49 @@
 "use strict";
 
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate");
 
 /**
  * Product Schema
- *
- * TODO:
- * REGEX for mail, example:
- * var match = [ /\.html$/, "That file doesn't end in .html ({VALUE})" ];
- * var s = new Schema({ file: { type: String, match: match }})
  */
 
-// The Number.MAX_SAFE_INTEGER constant represents the maximum safe integer in JavaScript 9007199254740991
-let min = [0, "The value of `{PATH}` ({VALUE}) is negative."];
-let max = [
-  9007199254740991,
-  "The value of `{PATH}` ({VALUE}) exceeds the limit ({MAX})."
+const min = [0, "number_min::{PATH}::{VALUE}::0"];
+const max = [
+  Number.MAX_SAFE_INTEGER,
+  "number_max::{PATH}::{VALUE}::Number.MAX_SAFE_INTEGER"
 ];
-let tags = {
+
+const tags = {
   values: ["work", "lifestyle", "motor", "mobile"],
-  message: "enum validator failed for tags `{PATH}` with value `{VALUE}`"
+  message: "tags::{VALUE}"
 };
 const productSchema = mongoose.Schema({
-  name: { type: String, index: true },
-  sale: { type: Boolean, index: true },
+  name: {
+    type: String,
+    trim: true,
+    index: true,
+    required: [true, "required::name"]
+  },
+  sale: { type: Boolean, index: true, required: [true, "required::sale"] },
   price: {
     type: Number,
     min: min,
     max: max,
-    index: true
+    index: true,
+    required: [true, "required::price"]
   },
   photo: { type: String },
-  tags: { type: String, enum: tags, index: true }
+  tags: [{ type: String, enum: tags, index: true }]
 });
+
+/**
+ * Plugin with promise
+ * promises = {
+ *   docs: docsQuery.exec(),
+ *   count: this.count(query).exec()
+ * };
+ */
+productSchema.plugin(mongoosePaginate);
 
 /**
  * List products
@@ -45,6 +56,14 @@ productSchema.statics.list = function(filters, limit, skip, sort, fields) {
   query.select(fields);
   return query.exec();
 };
+
+/**
+ * Get tags enum from Model
+ */
+productSchema.statics.tags = function() {
+  return productSchema.obj.tags[0].enum.values;
+};
+// Product.schema.path('tags.enum').options.type)
 
 const Product = mongoose.model("Product", productSchema);
 

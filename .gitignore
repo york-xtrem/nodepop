@@ -28,3 +28,13 @@ node_modules
 
 # Debug log from npm
 npm-debug.log
+
+# MongoDB
+mongodb
+mongod.sh
+mongo.sh
+
+# VSCode
+.vscode
+
+.env

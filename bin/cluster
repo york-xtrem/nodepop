@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+const fs = require("fs");
+
 /**
  * Module dependencies.
  */
@@ -11,6 +13,7 @@ var debug = require("debug")("nodepop:server");
 // Uncomment for HTTPS and comment line below
 // var https = require("https");
 var http = require("http");
+const cluster = require("cluster");
 
 /**
  * Get port from environment and store in Express.
@@ -28,21 +31,47 @@ const options = {
   cert: fs.readFileSync("certificates/host.cert")
 };
 
-/**
- * Create HTTP server.
- */
+// Control of cluster
+if (cluster.isMaster) {
+  const numCPUs = require("os").cpus().length;
 
-//  Uncomment for HTTPS and comment line below
-// var server = https.createServer(options, app);
-var server = http.createServer(app);
+  cluster.on("listening", (worker, address) => {
+    console.log(
+      `Worker ${worker.id} with PID ${worker.process.pid} connect to port ${
+        address.port
+      }`
+    );
+  });
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+  cluster.on("exit", (worker, code, signal) => {
+    console.log(
+      `Worker ${worker.process.pid} kill with code ${code} and signal ${signal}`
+    );
+    console.log("Init new worker");
+    cluster.fork();
+  });
 
-server.listen(port);
-server.on("error", onError);
-server.on("listening", onListening);
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+} else {
+  // I am Fork
+  /**
+   * Create HTTP server.
+   */
+
+  //  Uncomment for HTTPS and comment line below
+  // var server = https.createServer(options, app);
+  var server = http.createServer(app);
+
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
+
+  server.listen(port);
+  server.on("error", onError);
+  server.on("listening", onListening);
+}
 
 /**
  * Normalize a port into a number, string, or false.
