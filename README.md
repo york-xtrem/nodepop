@@ -39,5 +39,5 @@ npm run dev
 * [x] Cluster
 * [x] HTTPS
 * [x] Limitar las zonas de acceso
-* [ ] Config & ENV
+* [x] ENV
 * [ ] Change bcrypt to bcryptjs:https://github.com/jedireza/frame/wiki/bcrypt-Installation-Trouble
