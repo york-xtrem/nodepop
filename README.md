@@ -2,10 +2,6 @@
 
 > Es una pequeña API para gestionar el backend de una plataforma de compra y venta
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
-
 ![](header.png)
 
 Con está API podrás gestionar usuarios con distintos privilegios y progeter las imágenes de los anuncios. Esta preparada para devolver errores en **distintos idiomas.**
