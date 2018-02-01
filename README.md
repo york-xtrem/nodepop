@@ -7,6 +7,22 @@
 Con está API podrás gestionar usuarios con distintos privilegios y progeter las imágenes de los anuncios. Esta preparada para devolver errores en **distintos idiomas.**
 Está optimizada para aprovechar al máximo los recursos haciendo uso de promesas y desplegandose en el servidor con tantos clúster como soporte.
 
+## Práctica del curso de DevOps
+
+Web estática:
+- https://practicedevopsstatic.jorgebeltrannunez.com
+
+API:
+- https://practicedevopsnode.jorgebeltrannunez.com
+      - Imagen: https://practicedevopsnode.jorgebeltrannunez.com/images/products/product-placeholder.png
+Credenciales para probar enpoints:
+ - Email: adminnode@node.com
+ - Contraseña: L4cQyZM67EnuyLhW
+ 
+Para probar endpoint con Postman poner el token que te devuelve al identificarte en http://practicedevopsnode.jorgebeltrannunez.com/api/authenticate en la cabera con el _key_ x-access-token. Una endpoint que muestra todos los productos: https://practicedevopsnode.jorgebeltrannunez.com/api/users
+
+---
+
 ## Ìndice
 
 * [Instalación](#instalación)
@@ -334,12 +350,12 @@ Parametriza para poder utilizar la funcionalidades de i18n de personalización
 
 Valida la expresión mediante Regex siguiendo las instrucciones para devolver un filtro en mongoose
 
-Rango de precio (precio min. y precio max.), podemos usar un parámetro en la query string llamado precio que tenga una de estas combinaciones :
+Rango de precio (precio min. y precio max.), podemos usar un parámetro en la query string llamado precio que tenga una de estas combinaciones :
 
-* 10-50 buscará anuncios con precio incluido entre estos valores `{ precio: { '$gte': '10', '$lte': '50' } }`
-* 10- buscará los que tengan precio mayor que 10 `{ precio: { '$gte': '10' } }`
-* -50 buscará los que tengan precio menor de 50 `{ precio: { '$lte': '50' } }`
-* 50 buscará los que tengan precio igual a 50 `{ precio: '50' }`
+* 10-50 buscará anuncios con precio incluido entre estos valores `{ precio: { '$gte': '10', '$lte': '50' } }`
+* 10- buscará los que tengan precio mayor que 10 `{ precio: { '$gte': '10' } }`
+* -50 buscará los que tengan precio menor de 50 `{ precio: { '$lte': '50' } }`
+* 50 buscará los que tengan precio igual a 50 `{ precio: '50' }`
 
 &nbsp;
 
@@ -348,20 +364,20 @@ Rango de precio (precio min. y precio max.), podemos usar un parámetro en la q
 ---
 
 * [x] Crear app Express y probarla (express nodepop --ejs)
-* [x] Instalar Mongoose, modelo de anuncios y probarlo (con algún anuncio.save por
+* [x] Instalar Mongoose, modelo de anuncios y probarlo (con algún anuncio.save por
       ejemplo)
-* [x] Hacer un script de inicialización de la base de datos, que cargue el json de anuncios.
-      Se puede llamar p.e. install_db.js, debería borrar las tablas y cargar anuncios, y algún
+* [x] Hacer un script de inicialización de la base de datos, que cargue el json de anuncios.
+      Se puede llamar p.e. install_db.js, debería borrar las tablas y cargar anuncios, y algún
       usuario. Lo podemos poner en el package.json para poder usar npm run installDB.
 * [x] Hacer un fichero README.md con las instrucciones de uso puede ser una muy buena
-      idea, lo ponemos en la raíz del proyecto y si apuntamos ahí como arrancarlo, como
-      inicializar la BD, etc nos vendrá bien para cuando lo olvidemos o lo coja otra persona
-* [x] Hacer una primera versión básica del API, por ejemplo GET /apiv1/anuncios que
+      idea, lo ponemos en la raíz del proyecto y si apuntamos ahí como arrancarlo, como
+      inicializar la BD, etc nos vendrá bien para cuando lo olvidemos o lo coja otra persona
+* [x] Hacer una primera versión básica del API, por ejemplo GET /apiv1/anuncios que
       devuelva la lista de anuncios sin filtros.
-* [x] Para tener los errores en un formato estándar podéis hacer un módulo con un objeto
-      CustomError y usarlo en los distintos sitios donde tengáis que devolverlos. Esto además nos facilitará el trabajo cuando tengamos que hacer que salgan en distintos idiomas.
-* [x] Mejorar la lista de anuncios poniendo filtros, paginación, etc
-* [x] Meter autenticación
+* [x] Para tener los errores en un formato estándar podéis hacer un módulo con un objeto
+      CustomError y usarlo en los distintos sitios donde tengáis que devolverlos. Esto además nos facilitará el trabajo cuando tengamos que hacer que salgan en distintos idiomas.
+* [x] Mejorar la lista de anuncios poniendo filtros, paginación, etc
+* [x] Meter autenticación
 * [x] Lista de tags existentes
 * [x] Cluster
 * [x] HTTPS
