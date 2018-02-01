@@ -14,13 +14,13 @@ Web estática:
 
 API:
 - https://practicedevopsnode.jorgebeltrannunez.com
-      - Imagen: https://practicedevopsnode.jorgebeltrannunez.com/images/products/product-placeholder.png
+- Imagen: https://practicedevopsnode.jorgebeltrannunez.com/images/products/product-placeholder.png
       
 Credenciales para probar enpoints:
  - Email: adminnode@node.com
  - Contraseña: L4cQyZM67EnuyLhW
  
-Para probar endpoint con Postman poner el token que te devuelve al identificarte en http://practicedevopsnode.jorgebeltrannunez.com/api/authenticate (más información de como identificarte [aquí](###Identificación) con la cabera con el _key_ x-access-token. Un endpoint que muestra todos los productos: https://practicedevopsnode.jorgebeltrannunez.com/api/users
+Para probar endpoint con Postman poner el token que te devuelve al identificarte en http://practicedevopsnode.jorgebeltrannunez.com/api/authenticate (más información de como identificarte [aquí](###Identificación)) con la cabera con el _key_ x-access-token. Un endpoint que muestra todos los productos: https://practicedevopsnode.jorgebeltrannunez.com/api/users
 
 ---
 
